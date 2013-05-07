@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
+
+mainClassName = "org.openjdk.jmh.Main"
+libsDirName = "dist"	// Store .jars created in dist.
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	compile 'org.openjdk.jmh:jmh-core:1.0-SNAPSHOT'
+
+	testCompile 'junit:junit:4.+'
+}
+
+task copyDependencies(type: Copy) {
+    from configurations.runtime
+    into "$buildDir/libs"
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'jmhsort',
+			'Main-Class': "${mainClassName}",
+			'Class-Path': configurations.runtime.files.collect { "../libs/" + it.getName(); }.join(" ")
+    }
+    dependsOn copyDependencies
+}
