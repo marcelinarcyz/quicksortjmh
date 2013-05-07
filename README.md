@@ -9,7 +9,7 @@ This is a quicksort macrobenchmark using Oracle's jmh benchmarking tool. This be
 - Multi-threaded using a custom lock-free thread pool system.
 - Multi-threaded using Java 7 Fork Join
 
-Output of a run:
+Output of a run. This is with a sort size of 10,000,000. Higher ops/sec is faster:
 
 ```
 Benchmark                                         Thr    Cnt  Sec         Mean   Mean error          Var    Units
